@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Push Notification Example</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            margin: 50px;
+        }
+
+        button {
+            padding: 10px 20px;
+            font-size: 16px;
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+    <h1>Push Notification Example</h1>
+    <p>Click the button to send a desktop push notification.</p>
+    <button onclick="sendNotification()">Send Notification</button>
+
+    <script>
+        function sendNotification() {
+            if (!("Notification" in window)) {
+                alert("This browser does not support desktop notifications");
+            } else if (Notification.permission === "granted") {
+                // If notification permission is already granted, create a notification
+                var notification = new Notification("Hello, World!");
+            } else if (Notification.permission !== "denied") {
+                // Ask the user for permission to show notifications
+                Notification.requestPermission().then(function (permission) {
+                    if (permission === "granted") {
+                        var notification = new Notification("Hello, World!");
+                    } else {
+                        alert("You denied permission for notifications");
+                    }
+                });
+            }
+        }
+    </script>
+</body>
+</html>
